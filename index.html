@@ -1,10 +1,413 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A.M Isala Adikari — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#152524;
+    --teal:#1F4B43;
+    --teal-deep:#0F2E28;
+    --paper:#F1F3EE;
+    --paper-dim:#E6E9E2;
+    --amber:#C9932B;
+    --line:#D3D8CD;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--teal-deep);
+    margin:0;
+  }
+  a{color:var(--teal);}
+  section{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:64px 24px;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(241,243,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:14px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .nav-inner .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.1rem;
+    color:var(--teal-deep);
+  }
+  .nav-links{display:flex; gap:20px; flex-wrap:wrap;}
+  .nav-links a{
+    text-decoration:none;
+    color:var(--ink);
+    font-size:0.92rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .nav-links a:hover{color:var(--amber);}
+
+  /* HERO */
+  .hero{
+    padding-top:80px;
+    padding-bottom:56px;
+    display:flex;
+    gap:40px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .hero-text{flex:1 1 380px;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--amber);
+    margin-bottom:14px;
+  }
+  .hero h1{font-size:2.6rem; line-height:1.15; font-weight:700;}
+  .hero p.tagline{
+    font-size:1.15rem;
+    color:#3d4a44;
+    margin-top:14px;
+    max-width:46ch;
+  }
+  .hero-photo{
+    flex:0 0 200px;
+    width:200px; height:200px;
+    border-radius:6px;
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover;}
+  .hero-photo span{font-size:0.85rem; color:#7b857e; text-align:center; padding:10px;}
+
+  /* helix divider */
+  .divider{
+    display:flex; align-items:center; gap:14px;
+    margin:8px 0 6px;
+  }
+  .divider svg{flex:0 0 auto;}
+  .divider .rule{flex:1; height:1px; background:var(--line);}
+
+  /* SECTION LABEL */
+  .sec-label{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:28px;
+  }
+  .sec-label .tag{
+    font-family:'Source Sans 3', sans-serif;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    border:1px solid var(--amber);
+    padding:3px 8px;
+    border-radius:3px;
+  }
+  .sec-label h2{font-size:1.6rem;}
+
+  /* ABOUT */
+  .about-body p{max-width:70ch;}
+
+  /* EDUCATION */
+  .timeline-item{
+    display:flex;
+    gap:20px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .timeline-item:first-child{border-top:none;}
+  .timeline-item .when{
+    flex:0 0 140px;
+    font-weight:700;
+    color:var(--teal);
+    font-size:0.9rem;
+  }
+  .timeline-item .what strong{display:block; font-size:1.05rem;}
+  .timeline-item .what span{color:#5b655f; font-size:0.92rem;}
+
+  /* EXPERIENCE / QUALIFICATIONS */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:20px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:3px solid var(--teal);
+    border-radius:4px;
+    padding:18px 20px;
+  }
+  .card h3{font-size:1.05rem; margin-bottom:6px;}
+  .card .meta{font-size:0.85rem; color:var(--amber); font-weight:700; margin-bottom:8px;}
+  .card p{font-size:0.94rem; color:#3d4a44; margin:0;}
+
+  /* PROJECTS */
+  .project{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    padding:20px 0;
+    border-top:1px solid var(--line);
+  }
+  .project:first-child{border-top:none;}
+  .project h3{font-size:1.1rem;}
+  .project .stack{font-size:0.82rem; color:var(--teal); font-weight:700; letter-spacing:0.03em;}
+  .project a.link{font-size:0.9rem; font-weight:700;}
+
+  /* SKILLS */
+  .pill-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .pill{
+    background:var(--teal-deep);
+    color:var(--paper);
+    padding:7px 14px;
+    border-radius:100px;
+    font-size:0.85rem;
+    font-weight:600;
+  }
+
+  /* HOBBIES */
+  .hobby-row{display:flex; flex-wrap:wrap; gap:12px;}
+  .hobby{
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:4px;
+    font-size:0.92rem;
+  }
+
+  /* RESUME */
+  .resume-box{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+    background:var(--teal-deep);
+    color:var(--paper);
+    padding:26px 28px;
+    border-radius:6px;
+  }
+  .resume-box h3{color:var(--paper); font-size:1.15rem;}
+  .btn{
+    display:inline-block;
+    background:var(--amber);
+    color:var(--teal-deep);
+    font-weight:700;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:4px;
+    font-size:0.92rem;
+  }
+  .btn:hover{opacity:0.9;}
+
+  /* CONTACT */
+  .contact-row{display:flex; flex-wrap:wrap; gap:28px;}
+  .contact-item{font-size:1rem;}
+  .contact-item .label{
+    display:block;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--amber);
+    font-weight:700;
+    margin-bottom:4px;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 24px;
+    font-size:0.82rem;
+    color:#7b857e;
+  }
+
+  @media (max-width:600px){
+    .hero{flex-direction:column-reverse; align-items:flex-start;}
+    .hero h1{font-size:2rem;}
+  }
+</style>
 </head>
 <body>
-  <h1>Hello, this is my portfolio!</h1>
-  <p>More content coming soon.</p>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Isala Adikari</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#hobbies">Hobbies</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-text">
+    <div class="eyebrow">BSc (Hons) Biotechnology · Student</div>
+    <h1>A.M Isala Adikari</h1>
+    <p class="tagline">Biotechnology student with a keen interest in Technical product management</p>
+  </div>
+  <div class="hero-photo">
+    <!-- Replace this div's content with: <img src="photo.jpg" alt="[Your Name]"> -->
+    <span>Add your photo<br>(photo.jpg)</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label"><span class="tag">01</span><h2>About Me</h2></div>
+  <div class="about-body">
+    <p>I am a dedicated BSc (Hons) Biotechnology student with a strong passion for technical product management. My interests lie in the intersection between biology and technology, and I'm looking for opportunities to apply my knowledge and skills in a professional setting.</p>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-label"><span class="tag">02</span><h2>Education</h2></div>
+
+  <div class="timeline-item">
+    <div class="when">2026 – Present</div>
+    <div class="what">
+      <strong>BSc (Hons) in Biotechnology</strong>
+      <span>SLIIT-Malabe, Sri Lanka</span>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="when">2023 – 2025</div>
+    <div class="what">
+      <strong>Pearson Edexcel IAL (Biology,Chemistry,Physics)</strong>
+      <span>Royal International School-Kurunegala</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label"><span class="tag">03</span><h2>Work Experience</h2></div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Digital Marketing Coordinator</h3>
+      <div class="meta">IV Brands · 2024 – current</div>
+      <p>I worked in my family company where my main role was to supervise people that promoted our buisness online, ensuring that they met our standards and objectives. I learned essential skills such as management and communication through this work experience.</p>
+    </div>
+    <!-- Duplicate this card for more roles, or remove this whole section if not applicable -->
+  </div>
+</section>
+
+<!-- PROFESSIONAL QUALIFICATIONS -->
+<section id="qualifications">
+  <div class="sec-label"><span class="tag">04</span><h2>Other Professional Qualifications</h2></div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Certificate in AI and Computing Essentials </h3>
+      <div class="meta">Curtin University- Colombo · 2026</div>
+      <p>The course covered a detailed introduction into the world of artificial intelligence, and computing such as database managagement,coding and hardware knowledge.</p>
+    </div>
+    <!-- Remove this whole section if not applicable -->
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label"><span class="tag">05</span><h2>Projects</h2></div>
+
+  <div class="project">
+    <div class="stack">Data Analysis</div>
+    <h3>Managing different Data sets</h3>
+    <p>I managed cruicial buisness related information such as managing stocks, adjusting prices and maintaining data integrity via DBMS software.</p>
+  </div>
+
+  <!-- Duplicate the .project block above for each additional project -->
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label"><span class="tag">06</span><h2>Skills</h2></div>
+  <div class="pill-row">
+    <span class="pill">Leadership</span>
+    <span class="pill">Communication</span>
+    <span class="pill">Problem Solving</span>
+    <span class="pill">Teamwork</span>
+    <span class="pill">Time Management</span>
+    <!-- Add or remove pills as needed -->
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<section id="hobbies">
+  <div class="sec-label"><span class="tag">07</span><h2>Hobbies</h2></div>
+  <div class="hobby-row">
+    <span class="hobby">Reading</span>
+    <span class="hobby">Research</span>
+    <span class="hobby">Traveling</span>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="sec-label"><span class="tag">08</span><h2>Resume</h2></div>
+  <div class="resume-box">
+    <h3>Download my full resume (PDF)</h3>
+    <!-- Upload your resume PDF to the repo and update the href below to match its filename -->
+    <a class="btn" href="resume.pdf" download>Download CV</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label"><span class="tag">09</span><h2>Contact</h2></div>
+  <div class="contact-row">
+    <div class="contact-item">
+      <span class="label">Email</span>
+      <a href="mailto:isalaadikari622@gmail.com">isalaadikari622@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <span class="label">GitHub</span>
+      <a href="https://github.com/isala-dev" target="_blank">github.com/isala-dev</a>
+    </div>
+    <!-- Add LinkedIn or other links as needed -->
+  </div>
+</section>
+
+<footer>
+  © 2023 A.M Isala Adikari. Built for SC1172 — Introduction to Information Technology.
+</footer>
+
 </body>
 </html>
